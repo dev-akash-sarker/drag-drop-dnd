@@ -14,7 +14,7 @@
 }
 
 #left,
-#right {
+.right {
   width: 300px;
   min-height: 400px;
   margin: 20px;

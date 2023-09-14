@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
-
 import "./App.css";
 
 function App() {
   useEffect(() => {
     const lists = document.getElementsByClassName("list");
-    const rightBox = document.getElementById("right");
-    const leftBox = document.getElementById("left");
+    const rightContainers = document.querySelectorAll(".right");
 
     const handleDragStart = (e) => {
       const selected = e.target;
@@ -16,21 +14,21 @@ function App() {
       };
 
       const handleDrop = (e) => {
-        const targetBox = e.currentTarget;
-        targetBox.appendChild(selected);
+        const targetContainer = e.currentTarget;
+        targetContainer.appendChild(selected);
       };
 
-      rightBox.addEventListener("dragover", handleDragOver);
-      rightBox.addEventListener("drop", handleDrop);
-      leftBox.addEventListener("dragover", handleDragOver);
-      leftBox.addEventListener("drop", handleDrop);
+      rightContainers.forEach((container) => {
+        container.addEventListener("dragover", handleDragOver);
+        container.addEventListener("drop", handleDrop);
+      });
 
       // Cleanup event listeners when the component unmounts
       return () => {
-        rightBox.removeEventListener("dragover", handleDragOver);
-        rightBox.removeEventListener("drop", handleDrop);
-        leftBox.removeEventListener("dragover", handleDragOver);
-        leftBox.removeEventListener("drop", handleDrop);
+        rightContainers.forEach((container) => {
+          container.removeEventListener("dragover", handleDragOver);
+          container.removeEventListener("drop", handleDrop);
+        });
       };
     };
 
@@ -49,25 +47,27 @@ function App() {
   return (
     <>
       <div className="container">
-        <div id="left">
+        <div className="right">
           <div className="list" draggable>
             <img src="./assets/logo/drag_drop_icon.png" alt="" />
-            List Item 1
+            Item 1
           </div>
           <div className="list" draggable>
             <img src="./assets/logo/drag_drop_icon.png" alt="" />
-            List Item 2
+            Item 2
           </div>
           <div className="list" draggable>
             <img src="./assets/logo/drag_drop_icon.png" alt="" />
-            List Item 3
+            Item 3
           </div>
           <div className="list" draggable>
             <img src="./assets/logo/drag_drop_icon.png" alt="" />
-            List Item 4
+            Item 4
           </div>
         </div>
-        <div id="right"></div>
+        <div className="right"></div>
+        <div className="right"></div>
+        <div className="right"></div>
       </div>
     </>
   );
